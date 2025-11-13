@@ -23,7 +23,7 @@ mongoose.connect(MONGODB_URI, {
 // JWT Secret
 const JWT_SECRET = 'your-secret-key-change-this-in-production';
 
-// ==================== MODELS ====================
+
 
 // User Model
 const userSchema = new mongoose.Schema({
@@ -47,7 +47,7 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model('Book', bookSchema);
 
-// ==================== MIDDLEWARE ====================
+
 
 // Authentication Middleware
 const authenticate = async (req, res, next) => {
@@ -79,7 +79,7 @@ const authorizeAdmin = (req, res, next) => {
   next();
 };
 
-// ==================== AUTH ROUTES ====================
+
 
 // Register
 app.post('/api/auth/register', async (req, res) => {
@@ -186,9 +186,9 @@ app.get('/api/auth/verify', authenticate, async (req, res) => {
   });
 });
 
-// ==================== BOOK ROUTES ====================
 
-// Get all books (Public - anyone can view)
+
+
 app.get('/api/books', async (req, res) => {
   try {
     const books = await Book.find().sort({ createdAt: -1 });
@@ -275,7 +275,7 @@ app.delete('/api/books/:id', authenticate, authorizeAdmin, async (req, res) => {
   }
 });
 
-// ==================== START SERVER ====================
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
